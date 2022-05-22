@@ -1,24 +1,69 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useCallback, useMemo, useState } from "react";
+import { fetchCovidData } from "./api";
+import "./App.css";
+import { debounce } from "./common-utils";
+import Insight from "./components/insights";
+import RefreshButton from "./components/refresh-button";
+import Table from "./components/table";
+import ViewportContainer from "./components/viewport-container";
+import { InsightConfig, LabelConfig, TableConfig } from "./config";
+import { CovidData } from "./global";
 
 function App() {
+  const [data, setData] = useState<CovidData>();
+  const [loading, setLoading] = useState(false);
+  const [err, setErr] = useState(null);
+
+  const getData = useCallback(
+    debounce(() => {
+      setLoading(true);
+      return fetchCovidData()
+        .then((data) => setData(data))
+        .catch((err) => setErr(err))
+        .finally(() => setLoading(false));
+    }, 0),
+    []
+  );
+
+  const insightWithLabels = useMemo(
+    () => InsightConfig.map((obj) => ({ label: LabelConfig[obj.key], ...obj })),
+    []
+  );
+
+  const columns = useMemo(() => TableConfig, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <header className="App-header">Covid Tracker</header>
+      <div className="app-content">
+        <section className="insights">
+          <h2 className="title">Global Data</h2>
+          <div className="list">
+            {insightWithLabels.map(({ key, label }) => (
+              <Insight key={key} label={label} value={data?.Global?.[key]} />
+            ))}
+          </div>
+        </section>
+        <RefreshButton
+          label="Refresh Data"
+          onClick={getData}
+          loading={loading}
+        />
+        <section className="country-data">
+          <ViewportContainer buffer="40px" minHeight="300px">
+            <Table
+              title="Country Data"
+              dataSource={data?.Countries || []}
+              columns={columns}
+              defaultSortColumnKey="Country"
+              defaultSortDirection="asc"
+            />
+            {data?.Countries.length ? null : (
+              <div className="no-data">Data not available</div>
+            )}
+          </ViewportContainer>
+        </section>
+      </div>
     </div>
   );
 }

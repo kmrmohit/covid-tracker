@@ -1,0 +1,89 @@
+.button {
+  margin: 20px auto;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+  border-radius: 3px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+  position: relative;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+.btnTwo {
+  position: absolute;
+  height: 100%;
+  background: #26a69a;
+  top: 0px;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btnText {
+  display: inline-block;
+  color: white;
+  transition: 0.3s;
+}
+.button:hover .btnTwo,
+.button[aria-disabled="true"] .btnTwo {
+  left: 0px;
+}
+
+.button:active {
+  box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.3);
+}
+@media (min-width: 320px) {
+  .button {
+    width: 80px;
+    height: 16px;
+  }
+  .btnTwo {
+    width: 16px;
+    left: -20px;
+  }
+  .button:hover .btnText,
+  .button[aria-disabled="true"] .btnText {
+    margin-left: 15px;
+  }
+}
+@media (min-width: 481px) {
+  .button {
+    width: 100px;
+    height: 28px;
+  }
+  .btnTwo {
+    width: 28px;
+    left: -50px;
+  }
+  .button:hover .btnText,
+  .button[aria-disabled="true"] .btnText {
+    margin-left: 25px;
+  }
+}
+@media (min-width: 641px) {
+  .button {
+    width: 160px;
+    height: 32px;
+  }
+  .btnTwo {
+    width: 48px;
+    left: -70px;
+  }
+  .button:hover .btnText,
+  .button[aria-disabled="true"] .btnText {
+    margin-left: 35px;
+  }
+}
+@media (min-width: 961px) {
+  .button {
+    width: 200px;
+    height: 50px;
+  }
+  .button:hover .btnText,
+  .button[aria-disabled="true"] .btnText {
+    margin-left: 45px;
+  }
+}

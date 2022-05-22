@@ -1,0 +1,77 @@
+.loader-container {
+  position: relative;
+  margin: auto;
+  --font-medium: 28px;
+  --animation-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  width: var(--font-medium);
+  height: var(--font-medium);
+  box-sizing: border-box;
+  border: 4px solid rgb(233, 232, 216);
+  border-bottom-color: rgb(200, 211, 173);
+  border-left-color: whitesmoke;
+  border-radius: 100%;
+  animation: rotate 500ms linear 0s infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loader {
+  position: absolute;
+  width: calc(var(--font-medium) / 5);
+  aspect-ratio: 1;
+  background-color: lightgray;
+  border-radius: 100%;
+}
+
+.loader.one {
+  top: 15%;
+  left: 55%;
+  animation: blink;
+  animation: blink 1s var(--animation-function) 333ms infinite;
+}
+.loader.two {
+  top: 40%;
+  left: 65%;
+  animation: blink 1s var(--animation-function) 499ms infinite;
+}
+.loader.three {
+  top: 55%;
+  left: 25%;
+  animation: blink 1s var(--animation-function) 666ms infinite;
+}
+.loader.four {
+  top: 40%;
+  left: 5%;
+  animation: blink 1s var(--animation-function) 833ms infinite;
+}
+.loader.five {
+  top: 15%;
+  left: 5%;
+  animation: blink 1s var(--animation-function) 1s infinite;
+}
+.loader.six {
+  left: 25%;
+  top: 5%;
+  animation: blink 1s var(--animation-function) 166ms infinite;
+}
+
+.loader-container.medium {
+  width: var(--font-medium);
+  aspect-ratio: 1;
+}
+
+@keyframes blink {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

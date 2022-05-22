@@ -1,0 +1,41 @@
+.column-filter {
+  display: inline-block;
+  height: 8px;
+  width: 8px;
+}
+
+.column-filter .search-icon {
+  display: none;
+}
+
+table th:hover .column-filter .search-icon {
+  display: inline-block;
+}
+
+.column-filter .search-input {
+  position: absolute;
+  left: 0px;
+  top: 36px;
+  min-height: 32px;
+  z-index: 2;
+}
+
+table {
+  border-collapse: collapse;
+}
+table thead {
+  position: sticky;
+  top: -1px;
+}
+table tbody tr:nth-of-type(even) td {
+  background-color: #fbf8f842;
+}
+table tbody tr:nth-of-type(odd) td {
+  background-color: white;
+}
+table caption {
+  padding: 12px;
+  font-weight: bold;
+  font-size: 1.7em;
+  background: aliceblue;
+}
