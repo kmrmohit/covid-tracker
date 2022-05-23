@@ -1,45 +1,7 @@
 import React, { useEffect } from "react";
-import { useAsyncDebounce } from "react-table";
 import { Overlay } from "../../overlay";
 
 const ESC_KEY_CODE = 27;
-
-interface GlobalFilterProps {
-  preGlobalFilteredRows: any;
-  globalFilter: any;
-  setGlobalFilter: any;
-}
-
-function GlobalFilter({
-  preGlobalFilteredRows,
-  globalFilter,
-  setGlobalFilter,
-}: GlobalFilterProps) {
-  const count = preGlobalFilteredRows.length;
-  const [value, setValue] = React.useState(globalFilter);
-  const onChange = useAsyncDebounce((value) => {
-    setGlobalFilter(value || undefined);
-  }, 200);
-
-  return (
-    <span>
-      Search:{" "}
-      <input
-        value={value || ""}
-        onChange={(e) => {
-          setValue(e.target.value);
-          onChange(e.target.value);
-        }}
-        placeholder={`${count} records...`}
-        style={{
-          fontSize: "1.1rem",
-          border: "0",
-        }}
-      />
-    </span>
-  );
-}
-
 interface ColumnFilterProps {
   column: { filterValue: any; preFilteredRows: any; setFilter: any };
 }
@@ -71,6 +33,7 @@ function DefaultColumnFilter({
   }
 
   useEffect(() => {
+    inputRef.current?.focus();
     window.addEventListener("click", handleOutsideClick);
     window.addEventListener("keydown", handleOutsideClick);
     return () => {
@@ -112,5 +75,4 @@ function DefaultColumnFilter({
   );
 }
 
-export default GlobalFilter;
-export { DefaultColumnFilter, GlobalFilter };
+export { DefaultColumnFilter };
