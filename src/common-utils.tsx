@@ -1,3 +1,5 @@
+import { Row } from "react-table";
+
 export const isNumber = (num: string | number) => {
   return !isNaN(num as any);
 };
@@ -14,4 +16,14 @@ export const debounce = (cb: Function, timeout: number = 1000) => {
 
 export const numericRenderer = (value: number) => {
   return new Intl.NumberFormat().format(value);
+};
+
+export const numericFilter = (
+  unfilteredRows: Row[],
+  [columnId]: string[],
+  filterValue: string
+) => {
+  return unfilteredRows.filter((row) =>
+    String(row.values[columnId]).startsWith(filterValue)
+  );
 };

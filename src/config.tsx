@@ -1,4 +1,5 @@
 import { numericRenderer } from "./common-utils";
+import { ColumnProps } from "./components/table/types";
 import { CountryEntity, CovidEntity } from "./global";
 
 export type ColumnConfig = {
@@ -8,6 +9,7 @@ export type ColumnConfig = {
   hidden?: boolean;
   /**filter column based on some value, default enabled */
   filter?: boolean;
+  filterType?: ColumnProps<any>["filterType"];
   /**customise how the cell is displayed */
   render?: (value: any) => React.ReactNode;
   /**default enabled */
@@ -39,31 +41,37 @@ export const TableConfig: Array<ColumnConfig> = [
     key: "NewConfirmed",
     label: LabelConfig.NewConfirmed,
     render: numericRenderer,
+    filterType: "startsWith",
   },
   {
     key: "TotalConfirmed",
     label: LabelConfig.TotalConfirmed,
     render: numericRenderer,
+    filterType: "startsWith",
   },
   {
     key: "NewDeaths",
     label: LabelConfig.NewDeaths,
     render: numericRenderer,
+    filterType: "startsWith",
   },
   {
     key: "TotalDeaths",
     label: LabelConfig.TotalDeaths,
     render: numericRenderer,
+    filterType: "startsWith",
   },
   {
     key: "NewRecovered",
     label: LabelConfig.NewRecovered,
     render: numericRenderer,
+    filterType: "startsWith",
   },
   {
     key: "TotalRecovered",
     label: LabelConfig.TotalRecovered,
     render: numericRenderer,
+    filterType: "startsWith",
   },
 ];
 

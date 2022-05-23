@@ -4,6 +4,7 @@ import { useSortBy, useTable, useFilters, useGlobalFilter } from "react-table";
 import { TableProps } from "./types";
 import { DefaultColumnFilter } from "./widgets/filter-box";
 import "./table.css";
+import { numericFilter } from "../../common-utils";
 
 const Table = function <T extends object>({
   dataSource,
@@ -47,12 +48,17 @@ const Table = function <T extends object>({
     [defaultSortDirection, defaultSortColumnKey]
   );
 
+  const filterTypes = useMemo(() => ({
+    "startsWith": numericFilter
+  }), []);
+
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable(
       {
         columns: tableColumns,
         data: dataSource,
         sortBy: initialSortBy,
+        filterTypes
       },
       useFilters,
       useGlobalFilter,

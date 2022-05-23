@@ -16,7 +16,7 @@ export interface ColumnProps<T extends DataSourceProps> {
   sortType?: DefaultSortTypes;
   hidden?: boolean;
   filter?: boolean;
-  filterType?: DefaultFilterTypes;
+  filterType?: DefaultFilterTypes | "startsWith";
 }
 
 export interface TableProps<T extends DataSourceProps> {
