@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { fetchCovidData } from "./api";
 import "./App.css";
 import { debounce } from "./common-utils";
+import ErrorBoundary from "./components/error-boundary";
 import Insight from "./components/insights";
 import { Overlay } from "./components/overlay";
 import RefreshButton from "./components/refresh-button";
@@ -37,6 +38,8 @@ function App() {
     getData();
   }, []);
 
+  if (err) throw err;
+
   return (
     <div className="App">
       <header className="App-header">Covid Tracker</header>
@@ -49,11 +52,13 @@ function App() {
             ))}
           </div>
         </section>
-        <RefreshButton
-          label="Refresh Data"
-          onClick={getData}
-          loading={loading}
-        />
+        <section className="actions">
+          <RefreshButton
+            label="Refresh Data"
+            onClick={getData}
+            loading={loading}
+          />
+        </section>
         <section className="country-data">
           <ViewportContainer buffer="40px" minHeight="300px">
             <Table
