@@ -9,19 +9,29 @@ export const ViewportContainer: React.FC<{
   const updateStyle = React.useCallback(() => {
     const node = dynNodeRef?.current as any;
     if (node) {
-      const offset = node.getBoundingClientRect().y + window.scrollY;
+      const { y } = node.getBoundingClientRect();
+      const offset = y + window.scrollY;
       node.style.height = `calc(100vh - ${offset}px - ${buffer})`;
     }
-  }, [dynNodeRef]);
+  }, []);
+
+  React.useEffect(() => {
+    const node = dynNodeRef?.current as any;
+    if (node) {
+      const { y, width: containerWidth } = node.getBoundingClientRect();
+      const containerScrollWidth = node.scrollWidth;
+      node.scrollLeft = (containerScrollWidth - containerWidth) / 2;
+    }
+  }, []);
 
   React.useEffect(() => {
     if (typeof window === "undefined") return;
-    const resizeInterval = setInterval(updateStyle, 2000);
+    //const resizeInterval = setInterval(updateStyle, 2000);
     updateStyle();
     window.addEventListener("resize", updateStyle);
     return () => {
       window.removeEventListener("resize", updateStyle);
-      clearInterval(resizeInterval);
+      //clearInterval(resizeInterval);
     };
   }, []);
 
