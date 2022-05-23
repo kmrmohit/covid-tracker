@@ -1,8 +1,9 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { fetchCovidData } from "./api";
 import "./App.css";
 import { debounce } from "./common-utils";
 import Insight from "./components/insights";
+import { Overlay } from "./components/overlay";
 import RefreshButton from "./components/refresh-button";
 import Table from "./components/table";
 import ViewportContainer from "./components/viewport-container";
@@ -31,6 +32,10 @@ function App() {
   );
 
   const columns = useMemo(() => TableConfig, []);
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <div className="App">
@@ -64,6 +69,9 @@ function App() {
           </ViewportContainer>
         </section>
       </div>
+      {(data == null || !data?.Countries?.length) && loading ? (
+        <Overlay opacity="0.5" />
+      ) : null}
     </div>
   );
 }
